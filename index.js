@@ -71,6 +71,13 @@ async function run() {
       const result = await addedCollection.updateOne(filter, added, options);
       res.send(result);
     });
+    app.get('/added/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await addedCollection.findOne(query);
+      res.send(result);
+
+    })
 
  
 
