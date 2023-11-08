@@ -84,6 +84,13 @@ async function run() {
       const result = await addedCollection.insertOne(newAdded)
       res.send(result)
     })
+    app.delete('/added/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await addedCollection.deleteOne(query);
+      res.send(result);
+
+    })
 
  
 
