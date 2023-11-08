@@ -78,6 +78,12 @@ async function run() {
       res.send(result);
 
     })
+    app.post('/added', async (req, res) => {
+      const newAdded = req.body;
+      console.log(newAdded);
+      const result = await addedCollection.insertOne(newAdded)
+      res.send(result)
+    })
 
  
 
