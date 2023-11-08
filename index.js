@@ -38,6 +38,40 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
+    app.get('/services/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+
+      const result = await serviceCollection.findOne(query);
+      res.send(result);
+    })
+      // added section
+
+      app.get('/added', async (req, res) => {
+        const cursor = addedCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+      })
+      app.put('/added/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedAdded = req.body;
+      const added = {
+        $set: {
+          pictureUrl: updatedAdded.pictureUrl,
+          serviceArea: updatedAdded.serviceArea,
+          name: updatedAdded.name,
+          serviceName: updatedAdded.serviceName,
+          price: updatedAdded.price,
+          description: updatedAdded.description,
+        }
+      };
+      
+      const result = await addedCollection.updateOne(filter, added, options);
+      res.send(result);
+    });
+
  
 
 
